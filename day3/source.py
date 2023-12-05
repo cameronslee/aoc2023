@@ -1,3 +1,5 @@
+# Day 3: Gear Ratios
+
 with open('input.txt') as f:
   lines = f.readlines()
 
@@ -67,8 +69,6 @@ def scan2(board, m, n, i, j):
   res2 = list(set(res2))
   res = len(res2)
   
-  print("RETURNING", res, res2)
-
   return res, res2
 
 for i in range(0,len(lines)):
@@ -84,17 +84,7 @@ for i in range(0,len(board)):
     right = j
     if board[i][j].isnumeric():
       if scan(board,len(board),len(board[i]),i,j):
-        
-        while left >= 0 and board[i][left].isnumeric():
-          left -= 1
-        while right < len(board[i]) and board[i][right].isnumeric():
-          right += 1
-
-        res = board[i][left+1:right]
-        ans = ''.join(res)
-        ans = int(ans)
-        print(ans)
-        part1 += ans
+        part1 += get_num(board,i,j)
         j = right
     j += 1
 
