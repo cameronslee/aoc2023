@@ -1,0 +1,5 @@
+range [50, 98)
+
+src 60
+r = 48
+dest = 50 // This is the start of the remap
