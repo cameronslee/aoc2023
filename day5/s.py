@@ -1,6 +1,6 @@
 # Day 5: If You Give A Seed A Fertilizer
 
-with open('input1') as f:
+with open('input') as f:
   l = f.readlines()
 
 seeds = []
@@ -14,7 +14,6 @@ while curr < len(l):
   if "seeds:" in l[curr]:
     start = l[curr].find(':') + 2
     seeds = l[curr][start:].split(" ")
-    print(seeds)
     destination = [0 for i in range(len(seeds))]
     curr += 1
 
@@ -24,36 +23,40 @@ while curr < len(l):
       temp = l[curr].strip('\n').split(" ")
       data[curr_map].append(temp)
       curr += 1
-    print(curr_map, ":", data[curr_map])
     curr_map += 1
   curr += 1
 
-for i in range(0, len(seeds)): #FIXME
-  for mp in data[0]:
-    print("log", mp)
+# Part 1
+def f(x,data):
+  for mp in data:
     dest = int(mp[0])
     src = int(mp[1])
     r = int(mp[2])
+    if src <= x < src + r:
+      return dest + (x-src)
+  return x
 
+res = []
+for s in seeds:
+ s = int(s)
+ for d in data:
+   s = f(s, d)
+ res.append(s)
 
-    if int(seeds[i]) in range(src,src+r):
-      # range [50, 98) 
-      # example:60
-      #  yes -> 99 - 98 + dest
-      # 52 = (50(src)- 48(r)) + 50(src)
+print("PART 1: ", min(res))
 
-      destination[i] = dest + (int(seeds[i]) - src)
-    else:
-      destination[i] = int(seeds[i])
+# Part 2
+''' get ranges ( Brute Force)
+res = []
+seeds2 = []
+for i in range(0,len(seeds), 2):
+  for j in range(int(seeds[i]), int(seeds[i]) + int(seeds[i+1])):
+    seeds2.append(j)
 
-
-
-
-for i in range(1,len(data)):
-  for mp in data[i]:
-    dest = mp[0]
-    src = mp[1]
-    range = mp[2]
-
-print(seeds)
-print(destination)
+res = []
+for s in seeds2:
+ s = int(s)
+ for d in data:
+   s = f(s, d)
+ res.append(s)
+'''
